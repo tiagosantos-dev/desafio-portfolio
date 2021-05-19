@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.desafio.unifiscal.domain.Invoice;
+
 public class InvoiceDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -14,7 +16,26 @@ public class InvoiceDTO implements Serializable {
     private LocalDate dateOfIssuance;
     private BigDecimal total;
     
+    public InvoiceDTO() {}
     
+    public InvoiceDTO(Invoice invoice) {
+	
+		this.id = invoice.getId();
+		this.invoiceNumber = invoice.getInvoiceNumber();
+		this.estabilishment = invoice.getEstabilishment();
+		this.dateOfIssuance = invoice.getDateOfIssuance();
+		this.total = invoice.getTotal();
+	}
+    
+	public InvoiceDTO(Long id, String invoiceNumber, String estabilishment, LocalDate dateOfIssuance,
+			BigDecimal total) {
+	
+		this.id = id;
+		this.invoiceNumber = invoiceNumber;
+		this.estabilishment = estabilishment;
+		this.dateOfIssuance = dateOfIssuance;
+		this.total = total;
+	}
 	public Long getId() {
 		return id;
 	}
