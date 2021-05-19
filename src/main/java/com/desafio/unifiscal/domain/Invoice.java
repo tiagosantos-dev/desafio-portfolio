@@ -3,11 +3,15 @@ package com.desafio.unifiscal.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.desafio.unifiscal.services.dto.InvoiceDTO;
 
@@ -23,6 +27,9 @@ import com.desafio.unifiscal.services.dto.InvoiceDTO;
     private String estabilishment;
     private LocalDate dateOfIssuance;
     private BigDecimal total;
+    
+    @OneToMany
+    private List<Tax> taxes = new ArrayList<Tax>();
     
     public Invoice() {}
     
@@ -50,6 +57,10 @@ import com.desafio.unifiscal.services.dto.InvoiceDTO;
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public List<Tax> getTaxes() {
+		return taxes;
 	}
 
 	public String getInvoiceNumber() {
@@ -138,6 +149,8 @@ import com.desafio.unifiscal.services.dto.InvoiceDTO;
 		return "Invoice [id=" + id + ", invoiceNumber=" + invoiceNumber + ", estabilishment=" + estabilishment
 				+ ", dateOfIssuance=" + dateOfIssuance + ", total=" + total + "]";
 	}
+
+	
     
 
 }

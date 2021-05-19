@@ -3,12 +3,15 @@ package com.desafio.unifiscal.services.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.stereotype.Component;
 
 import com.desafio.unifiscal.domain.Invoice;
+import com.desafio.unifiscal.domain.Tax;
 
 
 public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Serializable {
@@ -20,6 +23,7 @@ public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Seri
     private String estabilishment;
     private LocalDate dateOfIssuance;
     private BigDecimal total;
+    private List<Tax> taxes = new ArrayList<Tax>();
     
     public InvoiceDTO() {}
     
@@ -122,6 +126,10 @@ public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Seri
 	public String toString() {
 		return "InvoiceDTO [id=" + id + ", invoiceNumber=" + invoiceNumber + ", estabilishment=" + estabilishment
 				+ ", dateOfIssuance=" + dateOfIssuance + ", total=" + total + "]";
+	}
+
+	public List<Tax> getTaxes() {
+		return taxes;
 	}
 
     

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,6 +51,7 @@ public class InvoiceController {
 	@PostMapping("invoices")
 	public ResponseEntity<InvoiceDTO> save(@RequestBody InvoiceDTO dto) {
 		InvoiceDTO invoiceDTOReceid = this.invoiceService.save(dto);
+		invoiceDTOReceid.add(linkTo(methodOn(InvoiceController.class).findById(invoiceDTOReceid.getId())).withSelfRel());
 		return ResponseEntity.created(URI.create("api/invoices/"+invoiceDTOReceid.getId())).body(invoiceDTOReceid);
 	}
 	
@@ -64,6 +66,23 @@ public class InvoiceController {
 			invoicesOptional.get().add(linkTo(methodOn(InvoiceController.class).findAll()).withRel("listOfInvoices") );
 			return ResponseEntity.ok(invoicesOptional.get());
 		}
+		
+	}
+	
+	@PutMapping("invoices")
+	public ResponseEntity<InvoiceDTO> update(@RequestBody InvoiceDTO dto) {
+		
+		InvoiceDTO invoiceDTOReceived = this.invoiceService.update(dto);
+		
+		if(invoiceDTOReceived == null){
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			
+		}else {
+			invoiceDTOReceived.add(linkTo(methodOn(InvoiceController.class).findById(invoiceDTOReceived.getId())).withSelfRel());
+			return ResponseEntity.ok(invoiceDTOReceived);
+			
+		}
+		
 		
 	}
 	

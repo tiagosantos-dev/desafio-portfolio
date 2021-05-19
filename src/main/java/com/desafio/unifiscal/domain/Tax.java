@@ -2,14 +2,29 @@ package com.desafio.unifiscal.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import com.desafio.unifiscal.domain.enums.TypeOfTaxes;
 
+@Entity
 public class Tax implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	private Long id;
+	
+	@Enumerated(EnumType.STRING)
 	private TypeOfTaxes typeOfTax;
 	private String name;
 	private double percent;
+	
+	public Tax() {}
 	
 	public Tax(TypeOfTaxes typeOfTax, String name, double percent) {
 		super();
@@ -73,6 +88,14 @@ public class Tax implements Serializable{
 	@Override
 	public String toString() {
 		return "Tax [typeOfTax=" + typeOfTax + ", name=" + name + ", percent=" + percent + "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	
