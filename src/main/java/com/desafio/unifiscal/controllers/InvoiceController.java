@@ -1,12 +1,13 @@
 package com.desafio.unifiscal.controllers;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.hateoas.Link;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
-
-import com.desafio.unifiscal.domain.Invoice;
 import com.desafio.unifiscal.services.InvoiceService;
 import com.desafio.unifiscal.services.dto.InvoiceDTO;
 
@@ -57,7 +54,7 @@ public class InvoiceController {
 	}
 	
 	@GetMapping("invoices/{id}")
-	public ResponseEntity<InvoiceDTO> findById(@PathVariable(value="id") Long id) {
+	public ResponseEntity<InvoiceDTO> findById(@PathVariable(value="id")final Long id) {
 		Optional<InvoiceDTO> invoicesOptional =  this.invoiceService.findOne(id);
 		
 		if(!invoicesOptional.isPresent()) {
