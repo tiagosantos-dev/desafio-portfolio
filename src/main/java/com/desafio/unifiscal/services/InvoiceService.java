@@ -1,6 +1,7 @@
 package com.desafio.unifiscal.services;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 import com.desafio.unifiscal.services.dto.InvoiceDTO;
@@ -41,6 +42,15 @@ public interface InvoiceService {
      * @return InvoiceDTO.
      */
 	InvoiceDTO update(InvoiceDTO invoiceDTO);
+	
+	
+	/**
+     * find all invoices.
+     *
+     *
+     * @return List<InvoiceDTO>.
+     */
+	List<InvoiceDTO> findAll();
 	
 	
 	

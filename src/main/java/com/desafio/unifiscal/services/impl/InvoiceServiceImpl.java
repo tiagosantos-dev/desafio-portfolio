@@ -1,6 +1,8 @@
 package com.desafio.unifiscal.services.impl;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,7 +54,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 			return new InvoiceDTO(invoiceReceivd);
 		}
 		
-	
+	}
+
+	@Override
+	public List<InvoiceDTO> findAll() {
+		return this.invoiceRepository.findAll().stream().map(InvoiceDTO::new).collect(Collectors.toList());
 	}
 
 }

@@ -4,9 +4,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import org.springframework.context.annotation.Primary;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.stereotype.Component;
+
 import com.desafio.unifiscal.domain.Invoice;
 
-public class InvoiceDTO implements Serializable {
+
+public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
