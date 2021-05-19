@@ -2,9 +2,12 @@ package com.desafio.unifiscal.services.impl;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.desafio.unifiscal.services.UserService;
 import com.desafio.unifiscal.services.dto.UserDTO;
 
+@Service
 public class UserServiceImpl implements UserService {
 
 	@Override

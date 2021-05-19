@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.desafio.unifiscal.services.dto.InvoiceDTO;
+
 @Entity
- class Invoice {
+ public class Invoice {
     
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +22,8 @@ import javax.persistence.Id;
     private LocalDate dateOfIssuance;
     private BigDecimal total;
     
+    public Invoice() {}
+    
 	public Invoice(Long id, String invoiceNumber, String estabilishment, LocalDate dateOfIssuance, BigDecimal total) {
 		super();
 		this.id = id;
@@ -27,6 +31,15 @@ import javax.persistence.Id;
 		this.estabilishment = estabilishment;
 		this.dateOfIssuance = dateOfIssuance;
 		this.total = total;
+	}
+	
+	public Invoice(InvoiceDTO dto) {
+		super();
+		this.id = dto.getId();
+		this.invoiceNumber = dto.getInvoiceNumber();
+		this.estabilishment = dto.getEstabilishment();
+		this.dateOfIssuance = dto.getDateOfIssuance();
+		this.total = dto.getTotal();
 	}
 
 	public Long getId() {
