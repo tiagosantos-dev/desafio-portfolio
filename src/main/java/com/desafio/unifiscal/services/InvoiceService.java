@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
+
 import com.desafio.unifiscal.services.dto.InvoiceDTO;
 
 public interface InvoiceService {
@@ -50,7 +52,7 @@ public interface InvoiceService {
      *
      * @return List<InvoiceDTO>.
      */
-	List<InvoiceDTO> findAll();
+	List<InvoiceDTO> findAll(Integer page, Integer size );
 	
 	
 	

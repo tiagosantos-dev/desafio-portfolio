@@ -6,11 +6,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.desafio.unifiscal.services.dto.InvoiceDTO;
@@ -21,20 +21,24 @@ import com.desafio.unifiscal.services.dto.InvoiceDTO;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private Long id;
 	
     private String invoiceNumber;
+	
     private String estabilishment;
+
     private LocalDate dateOfIssuance;
+	
     private BigDecimal total;
     
-    @OneToMany
+    
+    @OneToMany(  mappedBy="invoices") 
     private List<Tax> taxes = new ArrayList<Tax>();
     
     public Invoice() {}
     
 	public Invoice(Long id, String invoiceNumber, String estabilishment, LocalDate dateOfIssuance, BigDecimal total) {
-		super();
 		this.id = id;
 		this.invoiceNumber = invoiceNumber;
 		this.estabilishment = estabilishment;
@@ -43,13 +47,15 @@ import com.desafio.unifiscal.services.dto.InvoiceDTO;
 	}
 	
 	public Invoice(InvoiceDTO dto) {
-		super();
 		this.id = dto.getId();
 		this.invoiceNumber = dto.getInvoiceNumber();
 		this.estabilishment = dto.getEstabilishment();
 		this.dateOfIssuance = dto.getDateOfIssuance();
 		this.total = dto.getTotal();
+		this.taxes = dto.getTaxes();
 	}
+	
+
 
 	public Long getId() {
 		return id;

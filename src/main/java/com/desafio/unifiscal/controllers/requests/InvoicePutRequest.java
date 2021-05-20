@@ -1,21 +1,10 @@
-package com.desafio.unifiscal.services.dto;
+package com.desafio.unifiscal.controllers.requests;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.springframework.hateoas.RepresentationModel;
-
-import com.desafio.unifiscal.controllers.requests.InvoicePostRequest;
-import com.desafio.unifiscal.controllers.requests.InvoicePutRequest;
-import com.desafio.unifiscal.domain.Invoice;
-import com.desafio.unifiscal.domain.Tax;
-
-
-public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Serializable {
-
+public class InvoicePutRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
@@ -23,43 +12,19 @@ public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Seri
     private String estabilishment;
     private LocalDate dateOfIssuance;
     private BigDecimal total;
-    private List<Tax> taxes = new ArrayList<Tax>();
     
-    public InvoiceDTO() {}
+    public InvoicePutRequest() {}
     
-    public InvoiceDTO(Invoice invoice) {
-		this.id = invoice.getId();
-		this.invoiceNumber = invoice.getInvoiceNumber();
-		this.estabilishment = invoice.getEstabilishment();
-		this.dateOfIssuance = invoice.getDateOfIssuance();
-		this.total = invoice.getTotal();
-		this.taxes = invoice.getTaxes();
-	}
-    
-    public InvoiceDTO(InvoicePutRequest invoice) {
-  		this.id = invoice.getId();
-  		this.invoiceNumber = invoice.getInvoiceNumber();
-  		this.estabilishment = invoice.getEstabilishment();
-  		this.dateOfIssuance = invoice.getDateOfIssuance();
-  		this.total = invoice.getTotal();
-  	}
-    
-    public InvoiceDTO(InvoicePostRequest invoice) {
-    		this.invoiceNumber = invoice.getInvoiceNumber();
-    		this.estabilishment = invoice.getEstabilishment();
-    		this.dateOfIssuance = invoice.getDateOfIssuance();
-    		this.total = invoice.getTotal();
-    	}
-    
-	public InvoiceDTO(Long id, String invoiceNumber, String estabilishment, LocalDate dateOfIssuance,
+	public InvoicePutRequest(Long id, String invoiceNumber, String estabilishment, LocalDate dateOfIssuance,
 			BigDecimal total) {
-	
+		super();
 		this.id = id;
 		this.invoiceNumber = invoiceNumber;
 		this.estabilishment = estabilishment;
 		this.dateOfIssuance = dateOfIssuance;
 		this.total = total;
 	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -109,7 +74,7 @@ public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Seri
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		InvoiceDTO other = (InvoiceDTO) obj;
+		InvoicePutRequest other = (InvoicePutRequest) obj;
 		if (dateOfIssuance == null) {
 			if (other.dateOfIssuance != null)
 				return false;
@@ -139,17 +104,11 @@ public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Seri
 	}
 	@Override
 	public String toString() {
-		return "InvoiceDTO [id=" + id + ", invoiceNumber=" + invoiceNumber + ", estabilishment=" + estabilishment
+		return "InvoicePutRequest [id=" + id + ", invoiceNumber=" + invoiceNumber + ", estabilishment=" + estabilishment
 				+ ", dateOfIssuance=" + dateOfIssuance + ", total=" + total + "]";
 	}
-
-	public List<Tax> getTaxes() {
-		return taxes;
-	}
-
-	public void setTaxes(List<Tax> list) {
-		this.taxes = list;
-	}
-
-
+    
+	
+    
+   
 }

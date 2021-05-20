@@ -1,6 +1,7 @@
 package com.desafio.unifiscal.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.desafio.unifiscal.domain.enums.TypeOfTaxes;
 
@@ -15,22 +18,28 @@ import com.desafio.unifiscal.domain.enums.TypeOfTaxes;
 public class Tax implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Enumerated(EnumType.STRING)
 	private TypeOfTaxes typeOfTax;
 	private String name;
 	private double percent;
+	private BigDecimal total;
+	
+	@ManyToOne
+	@JoinColumn(name="invoice_id")
+	private Invoice invoices;
 	
 	public Tax() {}
 	
-	public Tax(TypeOfTaxes typeOfTax, String name, double percent) {
-		super();
+	public Tax(TypeOfTaxes typeOfTax, String name, double percent, BigDecimal total) {
 		this.typeOfTax = typeOfTax;
 		this.name = name;
 		this.percent = percent;
+		this.total = total.multiply(new BigDecimal(percent)).divide(new BigDecimal(100));
 	}
 	
 	public TypeOfTaxes getTypeOfTax() {
@@ -96,6 +105,14 @@ public class Tax implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
 	}
 	
 	
