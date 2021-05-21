@@ -11,41 +11,50 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.desafio.unifiscal.services.dto.InvoiceDTO;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
- public class Invoice implements Serializable{
+public class Invoice implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
-	private Long id;
-	
-    private String invoiceNumber;
-	
-    private String estabilishment;
 
-    private LocalDate dateOfIssuance;
+	private Long id;
+
+	private String invoiceNumber;
+	private String name;
+
+	private String estabilishment;
+
 	
-    private BigDecimal total;
-    
-    
-    @OneToMany(  mappedBy="invoices") 
-    private List<Tax> taxes = new ArrayList<Tax>();
-    
-    public Invoice() {}
-    
-	public Invoice(Long id, String invoiceNumber, String estabilishment, LocalDate dateOfIssuance, BigDecimal total) {
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private LocalDate dateOfIssuance;
+
+	private BigDecimal total;
+
+	@OneToMany(cascade = CascadeType.ALL )
+	@JoinColumn(name="invoice_id")
+	private List<Tax> taxes = new ArrayList<Tax>();
+	
+	public Invoice() {
+	}
+
+	public Invoice(Long id, String invoiceNumber, String estabilishment, LocalDate dateOfIssuance, BigDecimal total, String name) {
 		this.id = id;
 		this.invoiceNumber = invoiceNumber;
 		this.estabilishment = estabilishment;
 		this.dateOfIssuance = dateOfIssuance;
 		this.total = total;
+		this.name = name;
 	}
-	
+
 	public Invoice(InvoiceDTO dto) {
 		this.id = dto.getId();
 		this.invoiceNumber = dto.getInvoiceNumber();
@@ -53,9 +62,8 @@ import com.desafio.unifiscal.services.dto.InvoiceDTO;
 		this.dateOfIssuance = dto.getDateOfIssuance();
 		this.total = dto.getTotal();
 		this.taxes = dto.getTaxes();
+		this.name = dto.getName();
 	}
-	
-
 
 	public Long getId() {
 		return id;
@@ -64,7 +72,7 @@ import com.desafio.unifiscal.services.dto.InvoiceDTO;
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public List<Tax> getTaxes() {
 		return taxes;
 	}
@@ -156,9 +164,12 @@ import com.desafio.unifiscal.services.dto.InvoiceDTO;
 				+ ", dateOfIssuance=" + dateOfIssuance + ", total=" + total + "]";
 	}
 
-	
-    
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 }
-
-

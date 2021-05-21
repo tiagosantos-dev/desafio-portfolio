@@ -1,5 +1,7 @@
 package com.desafio.unifiscal.services.impl;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,6 +16,7 @@ import com.desafio.unifiscal.domain.Invoice;
 import com.desafio.unifiscal.domain.Tax;
 import com.desafio.unifiscal.domain.enums.TypeOfTaxes;
 import com.desafio.unifiscal.repositories.InvoiceRepository;
+import com.desafio.unifiscal.repositories.TaxRepository;
 import com.desafio.unifiscal.services.InvoiceService;
 import com.desafio.unifiscal.services.dto.InvoiceDTO;
 import com.desafio.unifiscal.services.exceptions.EntityNotFoundException;
@@ -30,16 +33,20 @@ public class InvoiceServiceImpl implements InvoiceService {
 		if(invoiceDTO == null) {
 			 throw new EntityNotFoundException("invoice undefined");
 		}else {
-			
-			Tax taxCOFINS = new Tax(TypeOfTaxes.COFINS, "Contribuição para o Financiamento da Seguridade Social", 15.20, invoiceDTO.getTotal());
+			  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			formatter.format(invoiceDTO.getDateOfIssuance());
+			 Tax taxCOFINS = new Tax(TypeOfTaxes.COFINS, "Contribuição para o Financiamento da Seguridade Social", 15.20, invoiceDTO.getTotal());
 			Tax taxPIS = new Tax(TypeOfTaxes.PIS, "Programas de Integração Social e de Formação do Patrimônio do Servidor Público", 1.65, invoiceDTO.getTotal());
 			Tax taxIRPJ = new Tax(TypeOfTaxes.IRPJ, "Imposto de Renda de Pessoa Jurídica", 15, invoiceDTO.getTotal());
 			Tax taxCSLL  = new Tax(TypeOfTaxes.CSLL, "Contribuição Social sobre o Lucro Líquido", 9, invoiceDTO.getTotal());
 			Tax taxICMS  = new Tax(TypeOfTaxes.ICMS, " Operações relativas à Circulação de Mercadorias e sobre Prestações de Serviços de Transporte Interestadual e Intermunicipal e de Comunicação", 18, invoiceDTO.getTotal());
 			Tax taxISS  = new Tax(TypeOfTaxes.ISS, "Imposto Sobre Serviços", 2,invoiceDTO.getTotal());
-			invoiceDTO.setTaxes(List.of(taxCOFINS,taxPIS, taxIRPJ, taxCSLL, taxICMS, taxISS));
+			
+			invoiceDTO.setTaxes(Arrays.asList(taxCOFINS,taxPIS, taxIRPJ, taxCSLL, taxICMS, taxISS));
 			
 			Invoice invoice = this.invoiceRepository.save(new Invoice(invoiceDTO));
+			
+			
 			return new InvoiceDTO(invoice);
 		}
 		

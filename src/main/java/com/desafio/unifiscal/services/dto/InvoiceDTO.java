@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.RepresentationModel;
 
 import com.desafio.unifiscal.controllers.requests.InvoicePostRequest;
@@ -19,8 +20,10 @@ public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Seri
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	private String name;
     private String invoiceNumber;
     private String estabilishment;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfIssuance;
     private BigDecimal total;
     private List<Tax> taxes = new ArrayList<Tax>();
@@ -34,6 +37,7 @@ public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Seri
 		this.dateOfIssuance = invoice.getDateOfIssuance();
 		this.total = invoice.getTotal();
 		this.taxes = invoice.getTaxes();
+		this.name = invoice.getName();
 	}
     
     public InvoiceDTO(InvoicePutRequest invoice) {
@@ -42,6 +46,7 @@ public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Seri
   		this.estabilishment = invoice.getEstabilishment();
   		this.dateOfIssuance = invoice.getDateOfIssuance();
   		this.total = invoice.getTotal();
+  		this.name = invoice.getName();
   	}
     
     public InvoiceDTO(InvoicePostRequest invoice) {
@@ -49,6 +54,7 @@ public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Seri
     		this.estabilishment = invoice.getEstabilishment();
     		this.dateOfIssuance = invoice.getDateOfIssuance();
     		this.total = invoice.getTotal();
+    		this.name = invoice.getName();
     	}
     
 	public InvoiceDTO(Long id, String invoiceNumber, String estabilishment, LocalDate dateOfIssuance,
@@ -149,6 +155,14 @@ public class InvoiceDTO  extends RepresentationModel<InvoiceDTO> implements Seri
 
 	public void setTaxes(List<Tax> list) {
 		this.taxes = list;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 

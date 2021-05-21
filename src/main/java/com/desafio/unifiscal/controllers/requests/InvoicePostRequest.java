@@ -4,20 +4,29 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class InvoicePostRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private String name;
 	private String invoiceNumber;
     private String estabilishment;
+    
+    @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate dateOfIssuance;
+    
     private BigDecimal total;
     
-	public InvoicePostRequest(String invoiceNumber, String estabilishment, LocalDate dateOfIssuance, BigDecimal total) {
-		super();
+	public InvoicePostRequest(String invoiceNumber, String estabilishment, LocalDate dateOfIssuance, BigDecimal total, String name) {
+	
 		this.invoiceNumber = invoiceNumber;
 		this.estabilishment = estabilishment;
 		this.dateOfIssuance = dateOfIssuance;
 		this.total = total;
+		this.setName(name);
 	}
 	
 	public String getInvoiceNumber() {
@@ -94,6 +103,14 @@ public class InvoicePostRequest implements Serializable {
 	public String toString() {
 		return "InvoicePostRequest [invoiceNumber=" + invoiceNumber + ", estabilishment=" + estabilishment
 				+ ", dateOfIssuance=" + dateOfIssuance + ", total=" + total + "]";
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
     
     

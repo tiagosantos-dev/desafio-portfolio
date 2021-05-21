@@ -8,6 +8,7 @@ public class InvoicePutRequest implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	private String name;
     private String invoiceNumber;
     private String estabilishment;
     private LocalDate dateOfIssuance;
@@ -16,13 +17,14 @@ public class InvoicePutRequest implements Serializable {
     public InvoicePutRequest() {}
     
 	public InvoicePutRequest(Long id, String invoiceNumber, String estabilishment, LocalDate dateOfIssuance,
-			BigDecimal total) {
+			BigDecimal total, String name) {
 		super();
 		this.id = id;
 		this.invoiceNumber = invoiceNumber;
 		this.estabilishment = estabilishment;
 		this.dateOfIssuance = dateOfIssuance;
 		this.total = total;
+		this.name = name;
 	}
 	
 	public Long getId() {
@@ -106,6 +108,14 @@ public class InvoicePutRequest implements Serializable {
 	public String toString() {
 		return "InvoicePutRequest [id=" + id + ", invoiceNumber=" + invoiceNumber + ", estabilishment=" + estabilishment
 				+ ", dateOfIssuance=" + dateOfIssuance + ", total=" + total + "]";
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
     
 	
