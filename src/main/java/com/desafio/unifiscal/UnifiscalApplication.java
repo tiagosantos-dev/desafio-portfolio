@@ -24,7 +24,7 @@ public class UnifiscalApplication {
 	    	config.addAllowedMethod("*");
 	    	//config.setMaxAge(3600L);
 	    	//para inserir mais origens
-	    	config.setAllowedOrigins(Arrays.asList("http://localhost:8081"));
+	    	config.setAllowedOrigins(Arrays.asList("http://localhost:8081", "*"));
 	    	
 	    	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 	    	source.registerCorsConfiguration("/**", config);
